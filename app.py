@@ -181,7 +181,7 @@ elif page == "Справочники":
         st.subheader("Сотрудники")
         name = st.text_input("ФИО сотрудника")
         cats = q("SELECT id, name FROM categories ORDER BY name", as_df=True)
-        cat_name = st.selectbox("Категория", cats["name"].tolist(), key="customer_label") if not cats.empty else [])
+        cat_name = st.selectbox("Категория", cats["name"].tolist(), key="customer_label") if not cats.empty else []
         if st.button("Добавить сотрудника"):
             if name and not cats.empty:
                 cat_id = int(cats[cats["name"]==cat_name]["id"].iloc[0])
