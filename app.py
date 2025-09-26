@@ -116,7 +116,7 @@ if page == "Запись операций":
             if df_orders.empty:
                 st.warning("Заказов пока нет — создайте новый внизу.")
             else:
-                order_label = st.selectbox("Номер заказа", df_orders["code"].tolist())
+                order_label = st.selectbox("Номер заказа", df_orders["code"].tolist(), key="order_label")
                 order_id = int(df_orders[df_orders["code"] == order_label]["id"].iloc[0])
         else:
             new_order_code = st.text_input("Номер нового заказа")
@@ -129,9 +129,9 @@ if page == "Запись операций":
 
         colA, colB, colC = st.columns(3)
         with colA:
-            worker_label = st.selectbox("Сотрудник", df_workers["name"].tolist() if not df_workers.empty else [])
+            worker_label = st.selectbox("Сотрудник", df_workers["name"].tolist(), key="worker_label") if not df_workers.empty else [])
         with colB:
-            operation_label = st.selectbox("Операция", df_ops["name"].tolist() if not df_ops.empty else [])
+            operation_label = st.selectbox("Операция", df_ops["name"].tolist(), key="operation_label") if not df_ops.empty else [])
         with colC:
             qty = st.number_input("Количество", min_value=0.0, step=1.0)
 
@@ -181,7 +181,7 @@ elif page == "Справочники":
         st.subheader("Сотрудники")
         name = st.text_input("ФИО сотрудника")
         cats = q("SELECT id, name FROM categories ORDER BY name", as_df=True)
-        cat_name = st.selectbox("Категория", cats["name"].tolist() if not cats.empty else [])
+        cat_name = st.selectbox("Категория", cats["name"].tolist(), key="customer_label") if not cats.empty else [])
         if st.button("Добавить сотрудника"):
             if name and not cats.empty:
                 cat_id = int(cats[cats["name"]==cat_name]["id"].iloc[0])
@@ -208,8 +208,8 @@ elif page == "Справочники":
         if cats.empty or ops.empty:
             st.info("Сначала добавьте категории и операции.")
         else:
-            cat_name = st.selectbox("Категория", cats["name"].tolist())
-            op_name  = st.selectbox("Операция", ops["name"].tolist())
+            cat_name = st.selectbox("Категория", cats["name"].tolist(), key="report_label")
+            op_name  = st.selectbox("Операция", ops["name"].tolist(), key="filter_label")
             rate = st.number_input("Ставка, ₽ за единицу", min_value=0.0, step=10.0)
             if st.button("Сохранить ставку"):
                 cat_id = int(cats[cats["name"]==cat_name]["id"].iloc[0])
