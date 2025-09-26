@@ -129,9 +129,9 @@ if page == "Запись операций":
 
         colA, colB, colC = st.columns(3)
         with colA:
-            worker_label = st.selectbox("Сотрудник", df_workers["name"].tolist(), key="worker_label") if not df_workers.empty else [])
+            worker_label = st.selectbox("Сотрудник", df_workers["name"].tolist(), key="worker_label") if not df_workers.empty else []
         with colB:
-            operation_label = st.selectbox("Операция", df_ops["name"].tolist(), key="operation_label") if not df_ops.empty else [])
+            operation_label = st.selectbox("Операция", df_ops["name"].tolist(), key="operation_label") if not df_ops.empty else []
         with colC:
             qty = st.number_input("Количество", min_value=0.0, step=1.0)
 
